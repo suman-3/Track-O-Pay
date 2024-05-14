@@ -4,6 +4,6 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-  <UserButton afterSignOutUrl="/"/>
+<h1>Dashboard page</h1>
   );
 }
