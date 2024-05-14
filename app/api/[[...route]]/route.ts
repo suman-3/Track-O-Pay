@@ -1,3 +1,5 @@
+//app/api/[[...route]]/route.ts
+
 import { Hono } from 'hono'
 import { handle } from 'hono/vercel'
 
