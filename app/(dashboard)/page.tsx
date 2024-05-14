@@ -1,9 +1,14 @@
-import { Button } from "@/components/ui/button";
-import { UserButton } from "@clerk/nextjs";
-import Image from "next/image";
+'use client'
+import React from 'react'
 
-export default function Home() {
+
+const page = () => {
+
   return (
-<h1>Dashboard page</h1>
-  );
+   <div>
+    Home 
+   </div>
+  )
 }
+
+export default page
