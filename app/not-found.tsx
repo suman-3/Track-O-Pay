@@ -46,14 +46,14 @@ export default function Home() {
   return (
     <div className="container">
       <div className="body">
-        <p>4 0 4</p>
+        <p className="text-4xl md:text-6xl lg:text-8xl">4 0 4</p>
       </div>
 
       <h1
         onClick={() => {
           router.replace("/");
         }}
-        className="underline z-50 cursor-pointer text-2xl hover:text-white hover:bg-black px-2 py-2"
+        className="underline z-50 cursor-pointer text-md lg:text-2xl hover:text-white hover:bg-black px-2 py-2"
       >
         Return Home
       </h1>
