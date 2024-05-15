@@ -22,7 +22,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Input } from "../ui/input";
-import { Trash } from "lucide-react";
+import { Loader, Trash } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -30,6 +30,7 @@ interface DataTableProps<TData, TValue> {
   filterKey: string;
   onDelete: (rows: Row<TData>[]) => void;
   disabled?: boolean;
+  isLoading?: boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -38,6 +39,7 @@ export function DataTable<TData, TValue>({
   filterKey,
   onDelete,
   disabled,
+  isLoading,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -78,8 +80,16 @@ export function DataTable<TData, TValue>({
             variant="outline"
             className="ml-auto font-normal text-xs"
             disabled={disabled}
+            onClick={() => {
+              onDelete(table.getFilteredSelectedRowModel().rows);
+              table.resetRowSelection();
+            }}
           >
-            <Trash className="size-4 mr-2" />
+            {isLoading ? (
+              <Loader className="size-4 mr-2 animate-spin" />
+            ) : (
+              <Trash className="size-4 mr-2" />
+            )}
             Delete ( {table.getFilteredSelectedRowModel().rows.length})
           </Button>
         )}
@@ -135,10 +145,12 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of&nbsp;
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
+        {table.getFilteredSelectedRowModel().rows.length > 0 && (
+          <div className="flex-1 text-sm text-muted-foreground">
+            {table.getFilteredSelectedRowModel().rows.length} of&nbsp;
+            {table.getFilteredRowModel().rows.length} row(s) selected.
+          </div>
+        )}
 
         <Button
           variant="outline"
