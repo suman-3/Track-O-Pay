@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/sheet";
 import { AccountForm } from "./account-form";
 import { z } from "zod";
+import { useCreateAccount } from "../api/use-create-account";
+import { on } from "events";
 
 const formSchema = insertAccountSchema.pick({
   name: true,
@@ -17,9 +19,13 @@ type FormValues = z.input<typeof formSchema>;
 
 export const NewAccoutntSheet = () => {
   const { isOpen, onClose } = userNewAccount();
-
+  const mutation = useCreateAccount();
   const onSubmit = (values: FormValues) => {
-    console.log(values);
+    mutation.mutate(values, {
+      onSuccess: () => {
+        onClose();
+      },
+    });
   };
 
   return (
@@ -31,9 +37,13 @@ export const NewAccoutntSheet = () => {
             Create a new Account to track your transactions.
           </SheetDescription>
         </SheetHeader>
-        <AccountForm onSubmit={onSubmit} disabled={false} defaultValues={{
-          name : "",
-        }} />
+        <AccountForm
+          onSubmit={onSubmit}
+          disabled={mutation.isPending}
+          defaultValues={{
+            name: "",
+          }}
+        />
       </SheetContent>
     </Sheet>
   );
