@@ -2,7 +2,8 @@
 import { useMountedState } from "react-use";
 
 import { NewAccoutntSheet } from "@/features/accounts/components/new-account-sheet";
-import { useEffect, useState } from "react";
+import { EditAccoutntSheet } from "@/features/accounts/components/edit-account-sheet";
+
 
 export const SheetProvider = () => {
   const isMounted = useMountedState();
@@ -13,6 +14,7 @@ export const SheetProvider = () => {
   return (
     <>
       <NewAccoutntSheet />
+      <EditAccoutntSheet/>
     </>
   );
 };
