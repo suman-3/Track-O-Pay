@@ -2,15 +2,28 @@
 
 import { userNewAccount } from "@/features/accounts/hooks/use-new-account";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CirclePlus } from "lucide-react";
 import React from "react";
+
+import { Payment, columns } from "./column";
+
+import { DataTable } from "@/components/layout/data-table";
+
+const data: Payment[] = [
+  {
+    id: "728ed52f",
+    amount: 100,
+    status: "pending",
+    email: "m@example.com",
+  },
+  // ...
+];
 
 const AccountsPage = () => {
   const newAccount = userNewAccount();
   return (
-    <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-20 md:-mt-20 lg:-mt-[7rem]">
+    <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-14 md:-mt-20 lg:-mt-[7rem]">
       <Card className="drop-shadow-sm">
         <CardHeader className="gap-y-2 flex flex-row items-center justify-between px-5 py-3">
           <CardTitle className="text-xl line-clamp-1">Account page</CardTitle>
@@ -19,6 +32,9 @@ const AccountsPage = () => {
             Add new
           </Button>
         </CardHeader>
+        <CardContent>
+          <DataTable columns={columns} data={data} />
+        </CardContent>
       </Card>
     </div>
   );
