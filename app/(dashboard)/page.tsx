@@ -1,10 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { userNewAccount } from "@/features/accounts/hooks/use-new-account";
+import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
 import React from "react";
 
 const page = () => {
-  const { onOpen } = userNewAccount();
+  const { onOpen } = useNewAccount();
 
   return (
     <div>
