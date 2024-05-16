@@ -15,6 +15,13 @@
       "when": 1715689332302,
       "tag": "0001_outgoing_gorgon",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1715865174706,
+      "tag": "0002_wild_whirlwind",
+      "breakpoints": true
     }
   ]
 }
