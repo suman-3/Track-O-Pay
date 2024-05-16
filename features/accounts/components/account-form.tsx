@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
-import { Trash } from "lucide-react";
+import { Save, Trash, WandSparkles } from "lucide-react";
 import DeleteDialogueButton from "@/components/layout/deleteDialogueButton";
 
 const formSchema = insertAccountSchema.pick({
@@ -72,17 +72,15 @@ export const AccountForm = ({
         />
 
         <Button className="w-full" disabled={disabled}>
+          {id ? <Save className="size-4 mr-2" /> : <WandSparkles className="size-4 mr-2" />}
           {id ? "Save Changes" : "Create Account"}
         </Button>
 
         {!!id && (
-          <DeleteDialogueButton
-            disabled={disabled}
-            handleDelete={handleDelete}
-            triigerLabel="Delete Account"
-            dialogueTitle="Delete Account"
-            dialogueDescription="Are you sure you want to delete this account?"
-          />
+           <Button type="button"  className="w-full" variant="outline" disabled={disabled} onClick={handleDelete}>
+            <Trash className="size-4 mr-2"  />
+          Delete Account
+         </Button>
         )}
       </form>
     </Form>
