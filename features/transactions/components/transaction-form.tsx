@@ -15,6 +15,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { ArrowUpDown, Save, Trash, WandSparkles } from "lucide-react";
 import { Select } from "@/components/layout/select";
+import { DatePicker } from "@/components/dashbaord/transactions/date-picker";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   date: z.coerce.date(),
@@ -75,6 +77,22 @@ export const TransactionForm = ({
         className="pt-4 space-y-4"
       >
         <FormField
+          name="date"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <DatePicker
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={disabled}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <FormField
           name="accountId"
           control={form.control}
           render={({ field }) => (
@@ -108,6 +126,41 @@ export const TransactionForm = ({
                   value={field.value}
                   onChange={field.onChange}
                   disabled={disabled}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="payee"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Payee</FormLabel>
+              <FormControl>
+                <Input
+                  disabled={disabled}
+                  placeholder="Add a payee"
+                  {...field}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="notes"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Payee</FormLabel>
+              <FormControl>
+                <Textarea
+                  {...field}
+                  value={field.value ?? ""}
+                  className="resize-none"
+                  disabled={disabled}
+                  placeholder="Optional notes"
                 />
               </FormControl>
             </FormItem>
