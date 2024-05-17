@@ -4,7 +4,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { client } from "@/lib/hono";
 import { toast } from "sonner";
 
-type RequestType = InferRequestType<typeof client.api.transactions.$post>["json"];
+type RequestType = InferRequestType<
+  typeof client.api.transactions.$post
+>["json"];
 type ResponseType = InferResponseType<typeof client.api.transactions.$post>;
 
 export const useCreateTransaction = () => {
