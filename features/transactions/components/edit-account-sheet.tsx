@@ -6,9 +6,9 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { AccountForm } from "./account-form";
+import { AccountForm } from "./transaction-form";
 import { z } from "zod";
-import { useOpenAccount } from "../hooks/use-open-account";
+import { useOpenAccount } from "../hooks/use-open-transaction";
 import { useGetAccount } from "../api/use-get-transaction";
 import { Loader2 } from "lucide-react";
 import { useEditAccount } from "../api/use-edit-transaction";
