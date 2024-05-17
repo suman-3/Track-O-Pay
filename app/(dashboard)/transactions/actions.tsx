@@ -5,8 +5,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useOpenAccount } from "@/features/accounts/hooks/use-open-account";
 import { useDeleteTransaction } from "@/features/transactions/api/use-delete-transaction";
+import { useOpenTransaction } from "@/features/transactions/hooks/use-open-transaction";
 import { useConfirm } from "@/hooks/use-confirm";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import React from "react";
@@ -21,7 +21,7 @@ export const Actions = ({ id }: Props) => {
     "You are about to delete thsi transaction."
   );
   const deleteTransaction = useDeleteTransaction(id);
-  const { onOpen } = useOpenAccount();
+  const { onOpen } = useOpenTransaction();
 
   const handleDelete = async () => {
     const ok = await confirm();
