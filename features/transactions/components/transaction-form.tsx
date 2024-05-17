@@ -17,13 +17,14 @@ import { ArrowUpDown, Save, Trash, WandSparkles } from "lucide-react";
 import { Select } from "@/components/layout/select";
 import { DatePicker } from "@/components/dashbaord/transactions/date-picker";
 import { Textarea } from "@/components/ui/textarea";
+import { AmountInput } from "@/components/dashbaord/transactions/amount-input";
 
 const formSchema = z.object({
   date: z.coerce.date(),
   accountId: z.string(),
   categoryId: z.string().nullable().optional(),
   payee: z.string(),
-  amount: z.number(),
+  amount: z.string(),
   notes: z.string().nullable().optional(),
 });
 
@@ -63,7 +64,7 @@ export const TransactionForm = ({
   });
 
   const handleSubmit = (values: FormValues) => {
-    onSubmit(values);
+    console.log(values);
   };
 
   const handleDelete = () => {
@@ -143,6 +144,22 @@ export const TransactionForm = ({
                   disabled={disabled}
                   placeholder="Add a payee"
                   {...field}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="amount"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Amount</FormLabel>
+              <FormControl>
+                <AmountInput
+                  {...field}
+                  placeholder="0.00"
+                  disabled={disabled}
                 />
               </FormControl>
             </FormItem>
