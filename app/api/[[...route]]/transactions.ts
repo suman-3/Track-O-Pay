@@ -36,13 +36,6 @@ const app = new Hono()
         return c.json({ error: "Unauthorized" }, 401);
       }
 
-      const defaultTo = new Date();
-      const defaultFrom = subDays(defaultTo, 30);
-      const startDate = from
-        ? parse(from, "yyyy-MM-dd", new Date())
-        : defaultFrom;
-      const endDate = to ? parse(to, "yyyy-MM-dd", new Date()) : defaultTo;
-
       const data = await db
         .select({
           id: transactions.id,
@@ -58,13 +51,7 @@ const app = new Hono()
         .from(transactions)
         .innerJoin(accounts, eq(transactions.accountId, accounts.id))
         .leftJoin(categories, eq(transactions.categoryId, categories.id))
-        .where(
-          and(
-            eq(accounts.userId, auth.userId),
-            gte(transactions.date, startDate),
-            lte(transactions.date, endDate)
-          )
-        )
+        .where(and(eq(accounts.userId, auth.userId)))
         .orderBy(desc(transactions.date));
 
       return c.json({ data });
@@ -83,14 +70,14 @@ const app = new Hono()
       const auth = getAuth(c);
       const { id } = c.req.valid("param");
       if (!id) {
-        return c.json({ error: "Missing accountId" }, 400);
+        return c.json({ error: "Missing id" }, 400);
       }
 
       if (!auth?.userId) {
         return c.json({ error: "Unauthorized" }, 401);
       }
 
-      const data = await db
+      const [data] = await db
         .select({
           id: transactions.id,
           date: transactions.date,
@@ -102,9 +89,7 @@ const app = new Hono()
         })
         .from(transactions)
         .innerJoin(accounts, eq(transactions.accountId, accounts.id))
-        .where(
-          and(eq(transactions.accountId, id), eq(accounts.userId, auth.userId))
-        );
+        .where(and(eq(transactions.id, id), eq(accounts.userId, auth.userId)));
 
       if (!data) {
         return c.json({ error: "Not Found" }, 404);
