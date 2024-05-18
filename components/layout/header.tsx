@@ -5,6 +5,7 @@ import { ClerkLoaded, ClerkLoading, UserButton } from "@clerk/nextjs";
 import { Skeleton } from "../ui/skeleton";
 import WelcomeMsg from "../dashbaord/welcome-msg";
 import Image from "next/image";
+import { Filters } from "../dashbaord/filters";
 
 const Header = () => {
   return (
@@ -30,6 +31,7 @@ const Header = () => {
           </ClerkLoading>
         </div>
         <WelcomeMsg />
+        <Filters/>
       </div>
     </header>
   );
