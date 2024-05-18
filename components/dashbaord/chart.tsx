@@ -4,6 +4,7 @@ import {
   BarChart3,
   FileSearch,
   LineChart,
+  Loader2,
 } from "lucide-react";
 import {
   Card,
@@ -24,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { Skeleton } from "../ui/skeleton";
 
 type Props = {
   data?: {
@@ -86,6 +88,23 @@ export const Chart = ({ data = [] }: Props) => {
             {chartType === "bar" && <BarVariant data={data} />}
           </>
         )}
+      </CardContent>
+    </Card>
+  );
+};
+
+
+export const ChartLoader = () => {
+  return (
+    <Card className="border-none drop-shadow-sm">
+      <CardHeader className="flex space-y-2 lg:space-y-0 lg:flex-row lg:items-center justify-between">
+        <Skeleton className="h-8 w-48" />
+        <Skeleton className="h-8 lg:w-[120px] w-full" />
+      </CardHeader>
+      <CardContent>
+        <div className="h-[350px] w-full flex items-center justify-center">
+          <Loader2 className="h-6 w-6 text-slate-300 animate-spin" />
+        </div>
       </CardContent>
     </Card>
   );

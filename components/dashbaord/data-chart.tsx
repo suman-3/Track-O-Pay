@@ -1,14 +1,23 @@
 "use client";
 
 import { useGetSummary } from "@/features/summary/api/use-get-summary";
-import { Chart } from "./chart";
-import { SpendingPie } from "./spending-pie";
+import { Chart, ChartLoader } from "./chart";
+import { SpendingPie, SpendingPieLoader } from "./spending-pie";
 
 export const DataCharts = () => {
   const { data, isLoading } = useGetSummary();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="grid lg:grid-cols-6 gap-6">
+        <div className="col-span-1 lg:col-span-3 xl:col-span-4">
+          <ChartLoader />
+        </div>
+        <div className="col-span-1 lg:col-span-3 xl:col-span-2">
+          <SpendingPieLoader />
+        </div>
+      </div>
+    );
   }
   return (
     <div className="grid lg:grid-cols-6 gap-6">

@@ -1,4 +1,4 @@
-import { FileSearch, PieChart, Radar, Target } from "lucide-react";
+import { FileSearch, Loader2, PieChart, Radar, Target } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -21,6 +21,7 @@ import {
 import { PieVariant } from "./pi-variant";
 import { RadarVariant } from "./radar-variant";
 import { RadialVariant } from "./radial-variant";
+import { Skeleton } from "../ui/skeleton";
 
 type Props = {
   data?: {
@@ -82,6 +83,23 @@ export const SpendingPie = ({ data = [] }: Props) => {
             {chartType === "radial" && <RadialVariant data={data} />}
           </>
         )}
+      </CardContent>
+    </Card>
+  );
+};
+
+
+export const SpendingPieLoader = () => {
+  return (
+    <Card className="border-none drop-shadow-sm">
+      <CardHeader className="flex space-y-2 lg:space-y-0 lg:flex-row lg:items-center justify-between">
+        <Skeleton className="h-8 w-48" />
+        <Skeleton className="h-8 lg:w-[120px] w-full" />
+      </CardHeader>
+      <CardContent>
+        <div className="h-[350px] w-full flex items-center justify-center">
+          <Loader2 className="h-6 w-6 text-slate-300 animate-spin" />
+        </div>
       </CardContent>
     </Card>
   );
