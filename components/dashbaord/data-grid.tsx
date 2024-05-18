@@ -36,7 +36,7 @@ export const DataGrid = () => {
             ? "success"
             : data && data?.remainingAmount >= 5000
             ? "warning"
-            : data && data?.remainingAmount >= 1000
+            : data && data?.remainingAmount >= 0
             ? "default"
             : "danger"
         }
@@ -52,7 +52,7 @@ export const DataGrid = () => {
           ? "success"
           : data && data?.incomeAmount >= 5000
           ? "warning"
-          : data && data?.incomeAmount >= 1000
+          : data && data?.incomeAmount >= 0
           ? "default"
           : "danger"
         }
@@ -68,7 +68,7 @@ export const DataGrid = () => {
           ? "success"
           : data && data?.expensesAmount >= 5000
           ? "warning"
-          : data && data?.expensesAmount >= 1000
+          : data && data?.expensesAmount >= 0
           ? "default"
           : "danger"
         }
