@@ -1,17 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
+import { format, subDays } from "date-fns";
 
 import { client } from "@/lib/hono";
 import { convertAmountFromMiliunits } from "@/lib/utils";
 
 export const useGetTransactions = () => {
   const params = useSearchParams();
-  const from = params.get("from") || " ";
-  const to = params.get("to") || " ";
-  const accountId = params.get("accountId") || " ";
+  const today = format(new Date(), "yyyy-MM-dd");
+  const thirtyDaysAgo = format(subDays(new Date(), 30), "yyyy-MM-dd");
+
+  const from = params.get("from") || thirtyDaysAgo;
+  const to = params.get("to") || today;
+  const accountId = params.get("accountId") || "";
 
   const query = useQuery({
-    //TODO : Check if params is neede in the queryKey
     queryKey: ["transactions", { from, to, accountId }],
     queryFn: async () => {
       const response = await client.api.transactions.$get({
@@ -23,14 +26,14 @@ export const useGetTransactions = () => {
       });
 
       if (!response.ok) {
-        throw new Error(" Failed to fetch transactions");
+        throw new Error("Failed to fetch transactions");
       }
 
       const { data } = await response.json();
 
-      return data.map((trasaction) => ({
-        ...trasaction,
-        amount: convertAmountFromMiliunits(trasaction.amount),
+      return data.map((transaction) => ({
+        ...transaction,
+        amount: convertAmountFromMiliunits(transaction.amount),
       }));
     },
   });
