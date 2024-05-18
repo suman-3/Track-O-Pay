@@ -83,14 +83,14 @@ const app = new Hono()
       const auth = getAuth(c);
       const { id } = c.req.valid("param");
       if (!id) {
-        return c.json({ error: "Missing id" }, 400);
+        return c.json({ error: "Missing accountId" }, 400);
       }
 
       if (!auth?.userId) {
         return c.json({ error: "Unauthorized" }, 401);
       }
 
-      const [data] = await db
+      const data = await db
         .select({
           id: transactions.id,
           date: transactions.date,
@@ -102,7 +102,9 @@ const app = new Hono()
         })
         .from(transactions)
         .innerJoin(accounts, eq(transactions.accountId, accounts.id))
-        .where(and(eq(transactions.id, id), eq(accounts.userId, auth.userId)));
+        .where(
+          and(eq(transactions.accountId, id), eq(accounts.userId, auth.userId))
+        );
 
       if (!data) {
         return c.json({ error: "Not Found" }, 404);
