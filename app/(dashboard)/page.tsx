@@ -1,16 +1,15 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
+
+import { DataGrid } from "@/components/dashbaord/data-grid";
 import React from "react";
 
-const page = () => {
-  const { onOpen } = useNewAccount();
+ const DashboardPage = () => {
+
 
   return (
-    <div>
-      <Button onClick={onOpen}>Add an Account</Button>
+    <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-14 md:-mt-20 lg:-mt-[7rem]">
+     <DataGrid/>
     </div>
   );
 };
 
-export default page;
+export default DashboardPage;
