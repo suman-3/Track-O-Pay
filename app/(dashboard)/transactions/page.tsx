@@ -29,7 +29,6 @@ const TransactionsPage = () => {
   const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS);
 
   const onUpload = (results: typeof INITIAL_IMPORT_RESULTS) => {
-    
     setImportResults(results);
     setVariant(VARIANTS.IMPORT);
   };
@@ -69,7 +68,11 @@ const TransactionsPage = () => {
   if (variant == VARIANTS.IMPORT) {
     return (
       <>
-       <ImportCard data={importResults.data} onSubmit={()=>{}} onCancel={onCancelImport} />
+        <ImportCard
+          data={importResults.data}
+          onSubmit={() => {}}
+          onCancel={onCancelImport}
+        />
       </>
     );
   }
@@ -77,12 +80,16 @@ const TransactionsPage = () => {
   return (
     <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-14 md:-mt-20 lg:-mt-[7rem]">
       <Card className="drop-shadow-sm border-none">
-        <CardHeader className="gap-y-2 flex flex-row items-center justify-between px-5 py-3">
+        <CardHeader className="gap-y-2 flex flex-col lg:flex-row items-center justify-between px-5 py-3">
           <CardTitle className="text-xl line-clamp-1">
             Transaction History
           </CardTitle>
-          <div className="flex items-center gap-3">
-            <Button size="sm" onClick={newTransaction.onOpen}>
+          <div className="flex flex-col lg:flex-row items-center gap-3 gap-y-2 w-full lg:w-auto">
+            <Button
+              size="sm"
+              onClick={newTransaction.onOpen}
+              className="w-full lg:w-auto"
+            >
               <CirclePlus className="size-4 mr-2" />
               Add new
             </Button>
